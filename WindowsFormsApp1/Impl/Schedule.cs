@@ -7,15 +7,21 @@ using System.Threading.Tasks;
 namespace WindowsFormsApp1.Impl {
    public class Schedule : Entity {
 
-        public List<Student> Students { get; set; }
-        public Professor Professor { get; set; }
-        public Course Course { get; set; }
-        public DateTime Calendar { get; set; }
-        public Schedule(List<Student> students, Professor professor, Course course, DateTime calendar) : base() {
+        public List<Student> Students { get; set; }/*  =new List<Student>(); */
+        public Professor Professors { get; set; }
+        public Course Courses { get; set; }
+        public DateTime Calendars { get; set; }
+        public Schedule( Course course, Professor professor, DateTime calendar) : base() {
+            Courses = course;
+          
+            Professors = professor;
+            Calendars = calendar;
+        }
+        public Schedule(List<Student> students , Course course, Professor professor, DateTime calendar) : base() {
+            Courses = course;
             Students = students;
-            Professor = professor;
-            Course = course;
-            Calendar = calendar;
+            Professors = professor;
+            Calendars = calendar;
         }
     }
 }

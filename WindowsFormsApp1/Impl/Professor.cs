@@ -9,10 +9,13 @@ namespace WindowsFormsApp1.Impl {
 
       
         public ProfessorCategoryEnum Rank { get; set; }
-        public List<CoursesCategoryEnum> CAN_TEACH { get; set; }
+        public List<Course> CAN_TEACH { get; set; }
+        public Professor() : base() {
         
-        public Professor(string name, string surname, int age, ProfessorCategoryEnum rank) : base() {
-               this.Rank = rank;
+        }
+        public Professor(string name, string surname, int age, ProfessorCategoryEnum rank , List<Course> canTech) : base() {
+            this.Rank = rank;
+            this.CAN_TEACH = canTech;
         }
     }
 }
