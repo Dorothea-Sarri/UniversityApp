@@ -15,7 +15,8 @@ namespace WindowsFormsApp1.WUI {
         private const string _JsonFile = "StudentData.json";
         private const string _JsonProfessorData = "ProfessorData.json";
         private const string _JsonCourseData = "CourseData.json";
-       
+        private const string _JsonScheduleData = "SchedulesData.json";
+        List<Student> Students = new List<Student>();
         public DataForm1() {
             InitializeComponent();
         }
@@ -56,7 +57,23 @@ namespace WindowsFormsApp1.WUI {
 
         #region new code
         private void DataForm1_Load(object sender, EventArgs e) {
+            DeserializeFromJson();
 
+            StudentGridView1.DataSource = objects.Students;
+
+
+
+            CourseGridView1.DataSource = objects.Courses;
+
+
+            ProfessorGridView.DataSource = objects.Professors;
+
+            foreach (Schedule for_schedule in objects.Schedules) {
+                string[] row = new string[] { for_schedule.Professors.Name + for_schedule.Professors.Surname, for_schedule.Professors.Rank.ToString(), for_schedule.Courses.Code, for_schedule.Courses.Subject };
+                ScheduleGridView1.Rows.Add(row);
+            }
+            
+            //ScheduleGridView1.DataSource = objects.Schedules;
             // todo : load data on enter!
 
         }
@@ -80,7 +97,7 @@ namespace WindowsFormsApp1.WUI {
             }
 
             //should run only once!
-            button11.Hide();
+       
         }
 
         private void button9_Click(object sender, EventArgs e) {
@@ -125,87 +142,28 @@ namespace WindowsFormsApp1.WUI {
                 // TODO: 3. A PROFESSOR CANNOT TEACH MORE THAN 4 COURSES PER DAY AND 40 COURSES PER WEEK
                 //ctrlSchedule.Items.Clear();
                 Course course = (Course)CourseGridView1.CurrentRow.DataBoundItem;
-                String x = ", ";
                 Student Stud;
-
-                List<String> v = new List<String>();
-
-                for (int i = 0; i < StudentGridView1.SelectedRows.Count; i++) {
+                for (int i = 0; i < StudentGridView1.SelectedRows.Count; i++) 
+                {
                     Stud = (Student)StudentGridView1.SelectedRows[i].DataBoundItem;
-                    
-                    v.Add(Stud.Name);
+                    Students.Add(Stud);
                 }
-                //MessageBox.Show(v.ToString()); 
-                //StudentGridView1.SelectedRows.Count;
                 Student student = (Student)StudentGridView1.CurrentRow.DataBoundItem;
 
                 Professor professor = (Professor)ProfessorGridView.CurrentRow.DataBoundItem;
                 DateTime Calendar = dateTimePicker2.Value;
-                objects.Schedules.Add(new Schedule(course, professor, Calendar));
+                objects.Schedules.Add(new Schedule(Students, course, professor, Calendar));
 
-
-                //ScheduleGridView1.ColumnCount = 5;
-                
-                //ScheduleGridView1.Columns[0].Name = "Professor Name";
-                //ScheduleGridView1.Columns[1].Name = "Professor Surname";
-                //ScheduleGridView1.Columns[2].Name = "Professor Rank";
-                //ScheduleGridView1.Columns[3].Name = "Cource Code";
-                //ScheduleGridView1.Columns[4].Name = "Cource Subject";
-                
-
-
-                //string[] row = new string[] { professor.Name, professor.Surname, professor.Rank.ToString(),course.Code,course.Subject };
-                //ScheduleGridView1.Rows.Add(row);
-
-                string[] row = new string[] { professor.Name, course.Subject };
+                string[] row = new string[] { professor.Name + professor.Surname, professor.Rank.ToString(),course.Code ,course.Subject };
                 ScheduleGridView1.Rows.Add(row);
 
-
-                //////DataGridViewComboBoxColumn col = new DataGridViewComboBoxColumn();
-                //////col.DisplayMember = "Students Name";
-                //////ScheduleGridView1.Columns.Add(col);
-                
-                //////col.DataSource = v;
-
-                //DataGridViewButtonColumn but = new DataGridViewButtonColumn();
-                //but.Text = "Show Student For This Course";
-                //ScheduleGridView1.Columns.Add(but);
                 
                 
                 
-                
-               // col.DataPropertyName = "userid";
-               // col.ValueMember = "id";
-                //ScheduleGridView1.Columns[5].Name = (col);
-                
-                //ScheduleGridView1.Rows.Add(DataGridViewComboBoxColumn)
-
-                //ScheduleGridView1.Rows.Add("Professor Name", "Professor Surname", "Professor Rank", "Cource Code", "Cource Subject", "Students Names");
-                //cheduleGridView1.Rows.Insert("Professor Name", "Professor Surname", "Professor Rank", "Cource Code", "Cource Subject", "Students Names");
-
-
-                //addForm._MasterData = MasterData;
-                //addForm.SqlConnectionAddForm = _SqlConnection;
-                //addForm.ShowDialog();
-
-                //gridControl1.MainView = gridLedger;
-
-
-
-
-
-                //  }
-                MessageBox.Show("all ok!");
             }
             catch {
                 MessageBox.Show("error");
-            }
-            finally {
-
-                MessageBox.Show(" ok!");
-            }
-
-           
+            }       
         }
 
         public void validate_professorCourse_with_studentCourse() { 
@@ -223,42 +181,27 @@ namespace WindowsFormsApp1.WUI {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             JavaScriptSerializer serializer1 = new JavaScriptSerializer();
             JavaScriptSerializer serializer2 = new JavaScriptSerializer();
+            JavaScriptSerializer serializer3 = new JavaScriptSerializer();
             string path = Path.Combine(Environment.CurrentDirectory, _JsonFile);
             string data = File.ReadAllText(path);
 
             string path1 = Path.Combine(Environment.CurrentDirectory, _JsonProfessorData);
             string data1 = File.ReadAllText(path1);
+
             string path2 = Path.Combine(Environment.CurrentDirectory, _JsonCourseData);
             string data2 = File.ReadAllText(path2);
+
+            string path3 = Path.Combine(Environment.CurrentDirectory, _JsonScheduleData);
+            string data3 = File.ReadAllText(path3);
 
             objects.Students = serializer.Deserialize<List<Student>>(data);
             objects.Professors = serializer1.Deserialize<List<Professor>>(data1);
             objects.Courses = serializer2.Deserialize<List<Course>>(data2);
+            objects.Schedules = serializer3.Deserialize<List<Schedule>>(data3);
 
-       
+
         }
-        private void button11_Click(object sender, EventArgs e) {
-
-            DeserializeFromJson();
-
-          
-                StudentGridView1.DataSource = objects.Students;
-           
-
-         
-                CourseGridView1.DataSource = objects.Courses;
-
-
-            ProfessorGridView.DataSource = objects.Professors;
-            //foreach (Professor cc1 in objects.Professors) {
-
-            //  //list3.Items.Add(string.Format("{0}  {1}", cc1.Name, cc1.Surname));
-            //    list3.Items.Add(cc1.ToString());
-            //}
-
-            //should run only once!
-            button11.Hide();
-        }
+        
 
         private void addToScheduleToolStripMenuItem_Click(object sender, EventArgs e) {
 
@@ -300,7 +243,10 @@ namespace WindowsFormsApp1.WUI {
 
         private void ScheduleGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
             if(ScheduleGridView1.Columns[e.ColumnIndex].Name=="StudentList") {
-              
+
+                StudentForm form = new StudentForm(Students);
+
+                form.Show();
 
             }
         }

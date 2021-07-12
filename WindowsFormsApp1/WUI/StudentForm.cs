@@ -7,18 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp1.Impl;
+
 
 namespace WindowsFormsApp1.WUI {
     public partial class StudentForm : Form {
-        public StudentForm() {
+
+        List<Student> Students = new List<Student>();
+        public StudentForm(List<Student> Students) {
+            this.Students = Students;
+
             InitializeComponent();
         }
 
         private void StudentForm_Load(object sender, EventArgs e) {
 
-
+            dataGridView1.DataSource = Students;
         }
-        private void StudentGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
 
         }
     }

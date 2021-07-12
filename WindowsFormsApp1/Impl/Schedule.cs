@@ -11,6 +11,9 @@ namespace WindowsFormsApp1.Impl {
         public Professor Professors { get; set; }
         public Course Courses { get; set; }
         public DateTime Calendars { get; set; }
+        public Schedule() : base() {
+         
+        }
         public Schedule( Course course, Professor professor, DateTime calendar) : base() {
             Courses = course;
           

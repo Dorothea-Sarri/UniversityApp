@@ -31,7 +31,6 @@ namespace WindowsFormsApp1.WUI {
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.button11 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.initializeDedomenaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,6 +46,8 @@ namespace WindowsFormsApp1.WUI {
             this.ScheduleGridView1 = new System.Windows.Forms.DataGridView();
             this.galleryDropDown1 = new DevExpress.XtraBars.Ribbon.GalleryDropDown(this.components);
             this.Proffessor_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProfessorRank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CourseCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CourseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudentList = new System.Windows.Forms.DataGridViewButtonColumn();
             this.menuStrip1.SuspendLayout();
@@ -114,16 +115,6 @@ namespace WindowsFormsApp1.WUI {
             this.label6.Size = new System.Drawing.Size(426, 42);
             this.label6.TabIndex = 13;
             this.label6.Text = "University Courses Scheduler";
-            // 
-            // button11
-            // 
-            this.button11.Location = new System.Drawing.Point(610, 57);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(187, 32);
-            this.button11.TabIndex = 14;
-            this.button11.Text = "Initialize (only run once!)";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // menuStrip1
             // 
@@ -206,8 +197,9 @@ namespace WindowsFormsApp1.WUI {
             // StudentGridView1
             // 
             this.StudentGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.StudentGridView1.Location = new System.Drawing.Point(440, 139);
+            this.StudentGridView1.Location = new System.Drawing.Point(439, 139);
             this.StudentGridView1.Name = "StudentGridView1";
+            this.StudentGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.StudentGridView1.Size = new System.Drawing.Size(357, 212);
             this.StudentGridView1.TabIndex = 17;
             this.StudentGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.StudentGridView1_CellContentClick);
@@ -225,11 +217,13 @@ namespace WindowsFormsApp1.WUI {
             this.ScheduleGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ScheduleGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Proffessor_Name,
+            this.ProfessorRank,
+            this.CourseCode,
             this.CourseName,
             this.StudentList});
             this.ScheduleGridView1.Location = new System.Drawing.Point(47, 460);
             this.ScheduleGridView1.Name = "ScheduleGridView1";
-            this.ScheduleGridView1.Size = new System.Drawing.Size(935, 170);
+            this.ScheduleGridView1.Size = new System.Drawing.Size(992, 170);
             this.ScheduleGridView1.TabIndex = 19;
             this.ScheduleGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ScheduleGridView1_CellContentClick);
             // 
@@ -240,15 +234,29 @@ namespace WindowsFormsApp1.WUI {
             // 
             // Proffessor_Name
             // 
-            this.Proffessor_Name.HeaderText = "Proffessor_Name";
+            this.Proffessor_Name.HeaderText = "Professor Name";
             this.Proffessor_Name.Name = "Proffessor_Name";
             this.Proffessor_Name.ReadOnly = true;
+            this.Proffessor_Name.Width = 120;
+            // 
+            // ProfessorRank
+            // 
+            this.ProfessorRank.HeaderText = "Professor Rank";
+            this.ProfessorRank.Name = "ProfessorRank";
+            this.ProfessorRank.Width = 120;
+            // 
+            // CourseCode
+            // 
+            this.CourseCode.HeaderText = "Course Code";
+            this.CourseCode.Name = "CourseCode";
+            this.CourseCode.Width = 120;
             // 
             // CourseName
             // 
-            this.CourseName.HeaderText = "CourseName";
+            this.CourseName.HeaderText = "Course Name";
             this.CourseName.Name = "CourseName";
             this.CourseName.ReadOnly = true;
+            this.CourseName.Width = 120;
             // 
             // StudentList
             // 
@@ -256,6 +264,7 @@ namespace WindowsFormsApp1.WUI {
             this.StudentList.Name = "StudentList";
             this.StudentList.Text = "Student List";
             this.StudentList.UseColumnTextForButtonValue = true;
+            this.StudentList.Width = 80;
             // 
             // DataForm1
             // 
@@ -264,7 +273,6 @@ namespace WindowsFormsApp1.WUI {
             this.Controls.Add(this.CourseGridView1);
             this.Controls.Add(this.StudentGridView1);
             this.Controls.Add(this.ProfessorGridView);
-            this.Controls.Add(this.button11);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button9);
@@ -312,7 +320,6 @@ namespace WindowsFormsApp1.WUI {
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button11;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem mainToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem initializeDedomenaToolStripMenuItem;
@@ -328,6 +335,8 @@ namespace WindowsFormsApp1.WUI {
         private System.Windows.Forms.DataGridView ScheduleGridView1;
         private DevExpress.XtraBars.Ribbon.GalleryDropDown galleryDropDown1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Proffessor_Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProfessorRank;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CourseCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn CourseName;
         private System.Windows.Forms.DataGridViewButtonColumn StudentList;
     }
