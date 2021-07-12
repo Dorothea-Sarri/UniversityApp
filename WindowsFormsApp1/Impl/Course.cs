@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.Impl {
 
-  public  class Course : Entity {
-       
+    public class Course : Entity {
+
         public string Code { get; set; }
         public string Subject { get; set; }
         public float Hours { get; set; }

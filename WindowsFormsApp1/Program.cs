@@ -20,8 +20,8 @@ namespace WindowsFormsApp1 {
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-             Application.Run(new DataForm1());
-            //Application.Run(new AddCoursesProfessor());
+         Application.Run(new DataForm1());
+            // Application.Run(new AddCoursesProfessor());
 
         }
     }

@@ -12,21 +12,18 @@ using WindowsFormsApp1.Impl;
 
 namespace WindowsFormsApp1.WUI {
     public partial class StudentForm : Form {
-
         List<Student> Students = new List<Student>();
         public StudentForm(List<Student> Students) {
-            this.Students = Students;
-
             InitializeComponent();
+            this.Students = Students;////////onomatologia
         }
 
         private void StudentForm_Load(object sender, EventArgs e) {
-
-            dataGridView1.DataSource = Students;
+              dataGridView1.DataSource = Students;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
 
-        }
+       }
     }
 }

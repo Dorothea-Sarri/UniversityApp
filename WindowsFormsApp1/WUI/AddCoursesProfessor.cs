@@ -15,7 +15,6 @@ namespace WindowsFormsApp1.WUI {
     public partial class AddCoursesProfessor : Form {
         private University objects = new University();
         public List<Form> OpenForms { get; set; }
-     
         private const string _JsonProfessorData = "ProfessorData.json";
         private const string _JsonCourseData = "CourseData.json";
         public AddCoursesProfessor() {
@@ -27,51 +26,28 @@ namespace WindowsFormsApp1.WUI {
             loadData();
         }
         private void DeserializeFromJson() {
-
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             JavaScriptSerializer serializer1 = new JavaScriptSerializer();
-
             string path = Path.Combine(Environment.CurrentDirectory, _JsonProfessorData);
             string data = File.ReadAllText(path);
-
-
             string path1 = Path.Combine(Environment.CurrentDirectory, _JsonCourseData);
             string data1 = File.ReadAllText(path1);
-
-
             objects.Professors = serializer.Deserialize<List<Professor>>(data);
-           objects.Courses= serializer1.Deserialize<List<Course>>(data1);
-
-
-
+            objects.Courses = serializer1.Deserialize<List<Course>>(data1);
         }
         private void loadData() {
             DeserializeFromJson();
-
-        
-            foreach (Course bb in objects.Courses) {
-                listBox1.Items.Add(bb.Code + "--" + bb.Subject);
-            }
-
-
-            foreach (Professor cc1 in objects.Professors) {
-
-                listBox2.Items.Add(string.Format("{0}  {1}", cc1.Name, cc1.Surname));
-            }
-
-
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e) {
+            dataGridView1.DataSource = objects.Professors;
+            dataGridView2.DataSource = objects.Courses;
 
         }
 
         private void simpleButton1_Click(object sender, EventArgs e) {
-            Professor p = (Professor)listBox2.SelectedItem;
-            Course c = (Course)listBox1.SelectedItem;
-
-          // p.CAN_TEACH.Add();
+            Course course = (Course)dataGridView2.CurrentRow.DataBoundItem;
+            Professor professor = (Professor)dataGridView1.CurrentRow.DataBoundItem;
+           // objects.Schedules.Add(new Schedule(Students, course, professor, Calendar));
+            string[] row = new string[] { professor.Name + professor.Surname, professor.Rank.ToString(), course.Code, course.Subject };
+            //ScheduleGridView1.Rows.Add(row);
         }
     }
 }
