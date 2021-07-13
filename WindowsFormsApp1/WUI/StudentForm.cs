@@ -15,7 +15,7 @@ namespace WindowsFormsApp1.WUI {
         List<Student> Students = new List<Student>();
         public StudentForm(List<Student> Students) {
             InitializeComponent();
-            this.Students = Students;////////onomatologia
+            this.Students = Students;
         }
 
         private void StudentForm_Load(object sender, EventArgs e) {

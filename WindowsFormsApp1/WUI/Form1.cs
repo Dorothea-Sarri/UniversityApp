@@ -12,7 +12,7 @@ namespace WindowsFormsApp1.WUI {
 
     public partial class DataForm1 : Form {
 
-        private University objects = new University();
+        private University university = new University();
         private const string _JsonFile = "StudentData.json";
         private const string _JsonProfessorData = "ProfessorData.json";
         private const string _JsonCourseData = "CourseData.json";
@@ -22,7 +22,7 @@ namespace WindowsFormsApp1.WUI {
             InitializeComponent();
         }
 
-        #region new code
+        
         private void DataForm1_Load(object sender, EventArgs e) {
             DeserializeFromJson();
             LoadGridViews();
@@ -30,34 +30,34 @@ namespace WindowsFormsApp1.WUI {
         }
         private void LoadGridViews() {
 
-            StudentGridView1.DataSource = objects.Students;
-            CourseGridView1.DataSource = objects.Courses;
-            ProfessorGridView.DataSource = objects.Professors;
-            foreach (Schedule for_schedule in objects.Schedules) {
+            StudentGridView1.DataSource = university.Students;
+            CourseGridView1.DataSource = university.Courses;
+            ProfessorGridView.DataSource = university.Professors;
+            foreach (Schedule for_schedule in university.Schedules) {
                 string[] row = new string[] { for_schedule.Courses.Code, for_schedule.Courses.Subject, for_schedule.Calendars, for_schedule.Hour, for_schedule.Professors.Name + for_schedule.Professors.Surname, for_schedule.Professors.Rank.ToString(), for_schedule.ID.ToString() };
                 ScheduleGridView1.Rows.Add(row);
             }
         }
       
         private void SaveSchedule() {
-            JavaScriptSerializer ff = new JavaScriptSerializer();
-            JavaScriptSerializer ProfessorSerializer = new JavaScriptSerializer();
-            JavaScriptSerializer StudentSerializer = new JavaScriptSerializer();
-            JavaScriptSerializer CourseSerializer = new JavaScriptSerializer();
+            JavaScriptSerializer schedulesSerializer = new JavaScriptSerializer();
+            JavaScriptSerializer professorSerializer = new JavaScriptSerializer();
+            JavaScriptSerializer studentSerializer = new JavaScriptSerializer();
+            JavaScriptSerializer courseSerializer = new JavaScriptSerializer();
 
-            File.WriteAllText("SchedulesData.json", ff.Serialize(objects.Schedules));
-            File.WriteAllText("ProfessorData.json", ProfessorSerializer.Serialize(objects.Professors));
-            File.WriteAllText("StudentData.json", StudentSerializer.Serialize(objects.Students));
-            File.WriteAllText("CourseData.json", CourseSerializer.Serialize(objects.Courses));
+            File.WriteAllText("SchedulesData.json", schedulesSerializer.Serialize(university.Schedules));
+            File.WriteAllText("ProfessorData.json", professorSerializer.Serialize(university.Professors));
+            File.WriteAllText("StudentData.json", studentSerializer.Serialize(university.Students));
+            File.WriteAllText("CourseData.json", courseSerializer.Serialize(university.Courses));
 
         }
-        private bool DatesAreInTheSameWeek(DateTime date1, DateTime date2) {
+        private bool DatesAreInTheSameWeek(DateTime firtsDate, DateTime endDate) {
             //Check 2 date if have the same first day of the week
             var cal = System.Globalization.DateTimeFormatInfo.CurrentInfo.Calendar;
-            var d1 = date1.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date1));
-            var d2 = date2.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date2));
+            var date1 = firtsDate.Date.AddDays(-1 * (int)cal.GetDayOfWeek(firtsDate));
+            var date2 = endDate.Date.AddDays(-1 * (int)cal.GetDayOfWeek(endDate));
 
-            return d1 == d2;
+            return date1 == date2;
         }
         private Boolean ProfessorCheck(List<Schedule> schedule, Professor professor, String Calendar, String hour) {
             int lessons_per_day_hour = 0;
@@ -68,14 +68,14 @@ namespace WindowsFormsApp1.WUI {
             DateTime dt = Convert.ToDateTime(Calendar);
             DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(dt);
             for (int i = 0; i < schedule.Count; i++) {
-                if (professor.ID == schedule[i].Professors.ID && (Calendar == objects.Schedules[i].Calendars && hour == objects.Schedules[i].Hour)) {
+                if (professor.ID == schedule[i].Professors.ID && (Calendar == university.Schedules[i].Calendars && hour == university.Schedules[i].Hour)) {
                     lessons_per_day_hour++;
                 }
-                else if (professor.ID == schedule[i].Professors.ID && Calendar == objects.Schedules[i].Calendars) {
+                else if (professor.ID == schedule[i].Professors.ID && Calendar == university.Schedules[i].Calendars) {
                     lessons_per_day++;
                 }
 
-                if (professor.ID == schedule[i].Professors.ID && DatesAreInTheSameWeek(dt, Convert.ToDateTime(objects.Schedules[i].Calendars))) {
+                if (professor.ID == schedule[i].Professors.ID && DatesAreInTheSameWeek(dt, Convert.ToDateTime(university.Schedules[i].Calendars))) {
                     lessons_per_week++;
                 }
             }
@@ -118,10 +118,10 @@ namespace WindowsFormsApp1.WUI {
                 for (int j = 0; j < student.Count; j++) {
                     for (int q = 0; q < schedule[i].Students.Count; q++) {
                        
-                        if (student[j].ID == schedule[i].Students[q].ID && (Calendar == objects.Schedules[i].Calendars && hour == objects.Schedules[i].Hour)) {
+                        if (student[j].ID == schedule[i].Students[q].ID && (Calendar == university.Schedules[i].Calendars && hour == university.Schedules[i].Hour)) {
                             lessons_per_day_hour++;
                         }
-                        else if (student[j].ID == schedule[i].Students[q].ID && Calendar == objects.Schedules[i].Calendars) {
+                        else if (student[j].ID == schedule[i].Students[q].ID && Calendar == university.Schedules[i].Calendars) {
                             lessons_per_day++;
                         }
                     }
@@ -152,29 +152,29 @@ namespace WindowsFormsApp1.WUI {
         }
     
 
-        #endregion
+     
         private void DeserializeFromJson() {
 
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            JavaScriptSerializer serializer1 = new JavaScriptSerializer();
-            JavaScriptSerializer serializer2 = new JavaScriptSerializer();
-            JavaScriptSerializer serializer3 = new JavaScriptSerializer();
-            string path = Path.Combine(Environment.CurrentDirectory, _JsonFile);
-            string data = File.ReadAllText(path);
+            JavaScriptSerializer studentsSerializer = new JavaScriptSerializer();
+            JavaScriptSerializer professorsSerializer = new JavaScriptSerializer();
+            JavaScriptSerializer coursesSerializer = new JavaScriptSerializer();
+            JavaScriptSerializer schedulesSerializer = new JavaScriptSerializer();
+            string pathStudents = Path.Combine(Environment.CurrentDirectory, _JsonFile);
+            string dataStudents = File.ReadAllText(pathStudents);
 
-            string path1 = Path.Combine(Environment.CurrentDirectory, _JsonProfessorData);
-            string data1 = File.ReadAllText(path1);
+            string pathProfessors = Path.Combine(Environment.CurrentDirectory, _JsonProfessorData);
+            string dataProfessors = File.ReadAllText(pathProfessors);
 
-            string path2 = Path.Combine(Environment.CurrentDirectory, _JsonCourseData);
-            string data2 = File.ReadAllText(path2);
+            string pathCourses = Path.Combine(Environment.CurrentDirectory, _JsonCourseData);
+            string dataCourses = File.ReadAllText(pathCourses);
 
-            string path3 = Path.Combine(Environment.CurrentDirectory, _JsonScheduleData);
-            string data3 = File.ReadAllText(path3);
+            string pathSchedules = Path.Combine(Environment.CurrentDirectory, _JsonScheduleData);
+            string dataSchedules = File.ReadAllText(pathSchedules);
 
-            objects.Students = serializer.Deserialize<List<Student>>(data);
-            objects.Professors = serializer1.Deserialize<List<Professor>>(data1);
-            objects.Courses = serializer2.Deserialize<List<Course>>(data2);
-            objects.Schedules = serializer3.Deserialize<List<Schedule>>(data3);
+            university.Students = studentsSerializer.Deserialize<List<Student>>(dataStudents);
+            university.Professors = professorsSerializer.Deserialize<List<Professor>>(dataProfessors);
+            university.Courses = coursesSerializer.Deserialize<List<Course>>(dataCourses);
+            university.Schedules = schedulesSerializer.Deserialize<List<Schedule>>(dataSchedules);
 
 
         }
@@ -186,32 +186,32 @@ namespace WindowsFormsApp1.WUI {
 
         private void ScheduleGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
             if (ScheduleGridView1.Columns[e.ColumnIndex].Name == "Delete") {
-                objects.Schedules.RemoveAt(e.RowIndex);
+                university.Schedules.RemoveAt(e.RowIndex);
                 ScheduleGridView1.Rows.Clear();
-                foreach (Schedule for_schedule in objects.Schedules) {
+                foreach (Schedule for_schedule in university.Schedules) {
                     string[] row = new string[] { for_schedule.Courses.Code, for_schedule.Courses.Subject, for_schedule.Calendars, for_schedule.Hour, for_schedule.Professors.Name + for_schedule.Professors.Surname, for_schedule.Professors.Rank.ToString(), for_schedule.ID.ToString() };
                     ScheduleGridView1.Rows.Add(row);
                 }
             }
             if (ScheduleGridView1.Columns[e.ColumnIndex].Name == "StudentList") {
-                MessageBox.Show(objects.Schedules[0].Students[0].Name.ToString());
+                
                
-                List<Student> l = new List<Student>();
-                l.Clear();
-                Schedule s = null;
-                Student Stud = null;
+                //List<Student> l = new List<Student>();
+                //l.Clear();
+                //Schedule schedule = null;
+                //Student Stud = null;
                
-                Students.Clear();
-                for (int i = 0; i < ScheduleGridView1.SelectedRows.Count; i++) {
-                    
-                    s = (Schedule)ScheduleGridView1.SelectedRows[i].DataBoundItem;
-                    for (int j = 0; j < s.Students.Count; j++) {
-                        l.Add(s.Students[j]);
-                    }
-                    
-                }
+                //Students.Clear();
+                //for (int i = 0; i < ScheduleGridView1.SelectedRows.Count; i++) {
 
-                StudentForm form = new StudentForm(l);
+                //    schedule = (Schedule)ScheduleGridView1.SelectedRows[i].DataBoundItem;
+                //    for (int j = 0; j < schedule.Students.Count; j++) {
+                //        l.Add(schedule.Students[j]);
+                //    }
+                    
+                //}
+
+                StudentForm form = new StudentForm(university.Students);
                 form.Show();
             }
             
@@ -231,19 +231,19 @@ namespace WindowsFormsApp1.WUI {
             List<Student> students = new List<Student>();
             List<Professor> professors = new List<Professor>();
 
-            for (int i = 0; i < objects.Students.Count; i++) {
-                for (int j = 0; j < objects.Students[i].CAN_LEARN.Count; j++) {
-                    if (objects.Students[i].CAN_LEARN[j].ID == course.ID) {
-                        students.Add(objects.Students[i]);
+            for (int i = 0; i < university.Students.Count; i++) {
+                for (int j = 0; j < university.Students[i].coursesCanLearn.Count; j++) {
+                    if (university.Students[i].coursesCanLearn[j].ID == course.ID) {
+                        students.Add(university.Students[i]);
 
                     }
                 }
 
             }
-            for (int i = 0; i < objects.Professors.Count; i++) {
-                for (int j = 0; j < objects.Professors[i].CAN_TEACH.Count; j++) {
-                    if (objects.Professors[i].CAN_TEACH[j].ID == course.ID) {
-                        professors.Add(objects.Professors[i]);
+            for (int i = 0; i < university.Professors.Count; i++) {
+                for (int j = 0; j < university.Professors[i].coursesCanTeach.Count; j++) {
+                    if (university.Professors[i].coursesCanTeach[j].ID == course.ID) {
+                        professors.Add(university.Professors[i]);
 
                     }
                 }
@@ -269,13 +269,13 @@ namespace WindowsFormsApp1.WUI {
                 string hour = strtTime.Text;
                 Professor professor = (Professor)ProfessorGridView.CurrentRow.DataBoundItem;
                 String Calendar = ScheduleCalendar.SelectionRange.Start.ToString("dd/MM/yyyy");
-                Schedule S = new Schedule();
+                //Schedule schedule = new Schedule();
 
-                if (ProfessorCheck(objects.Schedules, professor, Calendar, hour) && StudentCheck(objects.Schedules, Students, Calendar, hour)) {
+                if (ProfessorCheck(university.Schedules, professor, Calendar, hour) && StudentCheck(university.Schedules, Students, Calendar, hour)) {
                     MessageBox.Show("Valid Professor And Student Insert to Schedule");
-                    Schedule s = new Schedule(Students, course, professor, Calendar, hour);
-                    objects.Schedules.Add(s);
-                    string[] row = new string[] { course.Code, course.Subject, Calendar, hour, professor.Name + professor.Surname, professor.Rank.ToString(), s.ID.ToString() };
+                    Schedule schedule = new Schedule(Students, course, professor, Calendar, hour);
+                    university.Schedules.Add(schedule);
+                    string[] row = new string[] { course.Code, course.Subject, Calendar, hour, professor.Name + professor.Surname, professor.Rank.ToString(), schedule.ID.ToString() };
                     ScheduleGridView1.Rows.Add(row);
                     SaveSchedule();
                 }
@@ -286,8 +286,11 @@ namespace WindowsFormsApp1.WUI {
 
 
             }
+            catch (NullReferenceException) {
+                MessageBox.Show("You have not select Some of the neccecery components of the Schedule");
+            }
             catch {
-                MessageBox.Show("error");
+                MessageBox.Show("Error");
             }
         }
 
@@ -295,20 +298,7 @@ namespace WindowsFormsApp1.WUI {
             Application.Exit();
         }
 
-        private void Load_Click(object sender, EventArgs e) {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            string path = Path.Combine(Environment.CurrentDirectory, _JsonFile);
-            string data = File.ReadAllText(path);
 
-            objects.Schedules = serializer.Deserialize<List<Schedule>>(data);
-
-            foreach (Schedule cc1 in objects.Schedules) {
-                foreach (Student a in objects.Students) {
-                  
-                }
-            }
-          
-        }
 
         private void Save_Click(object sender, EventArgs e) {
             SaveSchedule();
@@ -316,6 +306,10 @@ namespace WindowsFormsApp1.WUI {
 
         private void About_Click(object sender, EventArgs e) {
             MessageBox.Show("Τhis application was created during Epsilonet Coding School by Dorothea Sarri");
+        }
+
+        private void label6_Click(object sender, EventArgs e) {
+
         }
     }
 }

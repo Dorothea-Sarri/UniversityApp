@@ -8,13 +8,13 @@ namespace WindowsFormsApp1.Impl {
     public class Student : Person {
 
         public string RegistrationNumber { get; set; }
-        public List<Course> CAN_LEARN { get; set; }
+        public List<Course> coursesCanLearn { get; set; }
         public Student() : base() {
 
         }
         public Student(string name, string surname, string registrationNumber, int age, List<Course> canLearn) : base() {
             RegistrationNumber = registrationNumber;
-            this.CAN_LEARN = canLearn;
+            this.coursesCanLearn = canLearn;
         }
     }
 }

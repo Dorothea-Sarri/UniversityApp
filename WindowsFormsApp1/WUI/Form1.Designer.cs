@@ -39,9 +39,8 @@ namespace WindowsFormsApp1.WUI {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataForm1));
             this.btnAdd = new System.Windows.Forms.Button();
-            this.btnLoad = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblIcarus = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.ProfessorGridView = new System.Windows.Forms.DataGridView();
@@ -101,16 +100,6 @@ namespace WindowsFormsApp1.WUI {
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.Add_Click);
             // 
-            // btnLoad
-            // 
-            this.btnLoad.Location = new System.Drawing.Point(970, 717);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(143, 32);
-            this.btnLoad.TabIndex = 11;
-            this.btnLoad.Text = "Load";
-            this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new System.EventHandler(this.Load_Click);
-            // 
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(1131, 717);
@@ -121,17 +110,18 @@ namespace WindowsFormsApp1.WUI {
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.Save_Click);
             // 
-            // label6
+            // lblIcarus
             // 
-            this.label6.AutoSize = true;
-            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label6.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label6.ForeColor = System.Drawing.Color.Maroon;
-            this.label6.Location = new System.Drawing.Point(338, 24);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(428, 44);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "University Courses Scheduler";
+            this.lblIcarus.AutoSize = true;
+            this.lblIcarus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblIcarus.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.lblIcarus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblIcarus.Location = new System.Drawing.Point(338, 24);
+            this.lblIcarus.Name = "lblIcarus";
+            this.lblIcarus.Size = new System.Drawing.Size(548, 44);
+            this.lblIcarus.TabIndex = 13;
+            this.lblIcarus.Text = "Icarus Managment Schedule System";
+            this.lblIcarus.Click += new System.EventHandler(this.label6_Click);
             // 
             // menuStrip1
             // 
@@ -521,9 +511,9 @@ namespace WindowsFormsApp1.WUI {
             this.lblProfessors.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblProfessors.Location = new System.Drawing.Point(554, 107);
             this.lblProfessors.Name = "lblProfessors";
-            this.lblProfessors.Size = new System.Drawing.Size(242, 20);
+            this.lblProfessors.Size = new System.Drawing.Size(333, 20);
             this.lblProfessors.TabIndex = 25;
-            this.lblProfessors.Text = "Professors who can teach lesson";
+            this.lblProfessors.Text = "Professors who can teach the selected lesson";
             // 
             // lblStudents
             // 
@@ -532,9 +522,9 @@ namespace WindowsFormsApp1.WUI {
             this.lblStudents.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblStudents.Location = new System.Drawing.Point(554, 282);
             this.lblStudents.Name = "lblStudents";
-            this.lblStudents.Size = new System.Drawing.Size(226, 20);
+            this.lblStudents.Size = new System.Drawing.Size(317, 20);
             this.lblStudents.TabIndex = 26;
-            this.lblStudents.Text = "Students who can learn lesson";
+            this.lblStudents.Text = "Students who can learn the selected lesson";
             // 
             // lblSchedule
             // 
@@ -568,9 +558,8 @@ namespace WindowsFormsApp1.WUI {
             this.Controls.Add(this.CourseGridView1);
             this.Controls.Add(this.StudentGridView1);
             this.Controls.Add(this.ProfessorGridView);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lblIcarus);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.menuStrip1);
             this.ForeColor = System.Drawing.Color.Black;
@@ -610,9 +599,8 @@ namespace WindowsFormsApp1.WUI {
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblIcarus;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem About;
         private System.Windows.Forms.DataGridView ProfessorGridView;

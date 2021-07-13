@@ -9,7 +9,9 @@ namespace WindowsFormsApp1.Impl {
         Physics = 0,
         Mathematics = 1,
         Chemistry = 2,
-        Financial = 3
+        Financial = 3,
+        Programming = 4,
+        DataBase=5
     }
     public enum ProfessorCategoryEnum {
         Rector = 0,
