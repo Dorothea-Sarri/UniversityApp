@@ -22,17 +22,7 @@ namespace WindowsFormsApp1.WUI {
             InitializeComponent();
         }
 
-        #region old code
-
-        //KALEI TO KOUMPI LOAD APO TO MENU 
-        private void loadDataToolStripMenuItem_Click(object sender, EventArgs e) {
-
-        }
-        //KOUMPI SAVE APO TO MENU
-        private void saveDataToolStripMenuItem_Click(object sender, EventArgs e) {
-
-        }
-        #endregion
+        
 
         #region new code
         private void DataForm1_Load(object sender, EventArgs e) {
@@ -115,7 +105,6 @@ namespace WindowsFormsApp1.WUI {
 
             DateTime dt = Convert.ToDateTime(Calendar);
             DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(dt);
-            MessageBox.Show(day.ToString());
             for (int i = 0; i < schedule.Count; i++) {
                 if (professor.ID == schedule[i].Professors.ID && (Calendar == objects.Schedules[i].Calendars && hour == objects.Schedules[i].Hour)) {
                     lessons_per_day_hour++;
@@ -132,7 +121,7 @@ namespace WindowsFormsApp1.WUI {
                 if ((professor.ID == schedule[i].Professors.ID && lessons_per_day_hour < 1) || ((professor.ID != schedule[i].Professors.ID && lessons_per_day_hour < 1))) {
                     if (lessons_per_day < 4) {
                         if (lessons_per_week < 40) { // Can Change 40 to a smaller number for test purpuses
-                            MessageBox.Show("Succeffull Insertion");
+                            MessageBox.Show("Professor Can Teach This Cource");
                             return true;
                         }
                         else {
@@ -161,33 +150,38 @@ namespace WindowsFormsApp1.WUI {
             int lessons_per_day = 0;
             DateTime dt = Convert.ToDateTime(Calendar);
             DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(dt);
-            MessageBox.Show(day.ToString());
+            MessageBox.Show("Student Check Begin");
             for (int i = 0; i < schedule.Count; i++) {
+                //MessageBox.Show("dd");
                 for (int j = 0; j < student.Count; j++) {
-                    if (student[j].ID == schedule[i].Students[j].ID && (Calendar == objects.Schedules[i].Calendars && hour == objects.Schedules[i].Hour)) {
-                        lessons_per_day_hour++;
-                    }
-                    else if (student[j].ID == schedule[i].Students[j].ID && Calendar == objects.Schedules[i].Calendars) {
-                        lessons_per_day++;
+                    for (int q = 0; q < schedule[i].Students.Count; q++) {
+                        //MessageBox.Show("22");
+                        if (student[j].ID == schedule[i].Students[q].ID && (Calendar == objects.Schedules[i].Calendars && hour == objects.Schedules[i].Hour)) {
+                            lessons_per_day_hour++;
+                        }
+                        else if (student[j].ID == schedule[i].Students[q].ID && Calendar == objects.Schedules[i].Calendars) {
+                            lessons_per_day++;
+                        }
                     }
                 }
 
             }
             for (int i = 0; i < schedule.Count; i++) {
                 for (int j = 0; j < student.Count; j++) {
+                    
                     if ((student[j].ID == schedule[i].Students[j].ID && lessons_per_day_hour < 1) || ((student[j].ID != schedule[i].Students[j].ID && lessons_per_day_hour < 1))) {
                         if (lessons_per_day < 3) {
-                            MessageBox.Show("Succeffull Insertion");
+                            MessageBox.Show("Succeffull Insertion for: "+ student[j].Name +", " +student[j].Surname);
                             return true;
                         }
                         else {
-                            MessageBox.Show("Student has More than 3 Cources in one Day");
+                            MessageBox.Show("Student" + student[j].Name + ", " + student[j].Surname+" has More than 3 Cources in one Day");
                             return false;
                         }
 
                     }
                     else {
-                        MessageBox.Show("Student has More than 1 Cources in one Day and the same Hour");
+                        MessageBox.Show("Student " + student[j].Name + ", " + student[j].Surname+ " has More than 1 Cources in one Day and the same Hour");
                         return false;
                     }
                 }
@@ -199,14 +193,15 @@ namespace WindowsFormsApp1.WUI {
 
                 // TODO: 1.1 CANNOT ADD SAME PROFESSOR IN SAME DATE & HOUR DONE
 
-                // TODO: 1.2 CANNOT ADD SAME STUDENT IN SAME DATE & HOUR 
+                // TODO: 1.2 CANNOT ADD SAME STUDENT IN SAME DATE & HOUR DONE
 
-                // TODO: 2. EACH STUDENT CANNOT HAVE MORE THAN 3 COURSES PER DAY!
+                // TODO: 2. EACH STUDENT CANNOT HAVE MORE THAN 3 COURSES PER DAY! DONE
 
                 // TODO: 3. A PROFESSOR CANNOT TEACH MORE THAN 4 COURSES PER DAY AND 40 COURSES PER WEEK DONE
 
                 Course course = (Course)CourseGridView1.CurrentRow.DataBoundItem;
-                Student Stud;
+                Student Stud = null;
+                Students.Clear();
                 for (int i = 0; i < StudentGridView1.SelectedRows.Count; i++) {
                     Stud = (Student)StudentGridView1.SelectedRows[i].DataBoundItem;
                     Students.Add(Stud);
@@ -218,13 +213,15 @@ namespace WindowsFormsApp1.WUI {
                 Schedule S = new Schedule();
 
                 if (ProfessorCheck(objects.Schedules, professor, Calendar, hour) && StudentCheck(objects.Schedules, Students, Calendar, hour)) {
-                    MessageBox.Show("Valid Professor And Student");
+                    MessageBox.Show("Valid Professor And Student Insert to Schedule");
                     Schedule s = new Schedule(Students, course, professor, Calendar, hour);
                     objects.Schedules.Add(s);
                     string[] row = new string[] { course.Code, course.Subject, Calendar, hour, professor.Name + professor.Surname, professor.Rank.ToString(), s.ID.ToString() };
                     ScheduleGridView1.Rows.Add(row);
                     SaveSchedule();
-
+                }
+                else {
+                    MessageBox.Show("Invalid Selection");
                 }
                 //for (int i = 0; i < objects.Schedules.Count; i++) {
                 //    // for (int j = 0; j < objects.Schedules[i].Students.Count; j++) {
@@ -302,7 +299,14 @@ namespace WindowsFormsApp1.WUI {
         }
 
         private void ScheduleGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-
+            if (ScheduleGridView1.Columns[e.ColumnIndex].Name == "Delete") {
+                objects.Schedules.RemoveAt(e.RowIndex);
+                ScheduleGridView1.Rows.Clear();
+                foreach (Schedule for_schedule in objects.Schedules) {
+                    string[] row = new string[] { for_schedule.Courses.Code, for_schedule.Courses.Subject, for_schedule.Calendars, for_schedule.Hour, for_schedule.Professors.Name + for_schedule.Professors.Surname, for_schedule.Professors.Rank.ToString(), for_schedule.ID.ToString() };
+                    ScheduleGridView1.Rows.Add(row);
+                }
+            }
             if (ScheduleGridView1.Columns[e.ColumnIndex].Name == "StudentList") {
                 MessageBox.Show(objects.Schedules[0].Students[0].Name.ToString());
                 //Schedule s; //= (Schedule)ScheduleGridView1.CurrentRow.DataBoundItem;
@@ -313,23 +317,31 @@ namespace WindowsFormsApp1.WUI {
                 //}
                 //StudentForm form = new StudentForm(l[0].Students);
                 //objects.Schedules
-                Schedule s; //= (Schedule)ScheduleGridView1.CurrentRow.DataBoundItem;
                 List<Student> l = new List<Student>();
-                for (int i = 0; i < objects.Schedules.Count; i++) {
-                    l = objects.Schedules[i].Students;
+                l.Clear();
+                Schedule s = null;
+                Student Stud = null;
+                //s = (Schedule)ScheduleGridView1.CurrentRow.DataBoundItem;
+                Students.Clear();
+                for (int i = 0; i < ScheduleGridView1.SelectedRows.Count; i++) {
+                    
+                    s = (Schedule)ScheduleGridView1.SelectedRows[i].DataBoundItem;
+                    for (int j = 0; j < s.Students.Count; j++) {
+                        l.Add(s.Students[j]);
+                    }
+                    
                 }
-                StudentForm form = new StudentForm(objects.Students);
 
+
+                //Schedule s; //= (Schedule)ScheduleGridView1.CurrentRow.DataBoundItem;
+                //List<Student> l = new List<Student>();
+                //for (int i = 0; i < objects.Schedules.Count; i++) {
+                //    l = objects.Schedules[i].Students;
+                //}
+                StudentForm form = new StudentForm(l);
                 form.Show();
             }
-            if (ScheduleGridView1.Columns[e.ColumnIndex].Name == "Delete") {
-                objects.Schedules.RemoveAt(e.RowIndex);
-                ScheduleGridView1.Rows.Clear();
-                foreach (Schedule for_schedule in objects.Schedules) {
-                    string[] row = new string[] { for_schedule.Courses.Code, for_schedule.Courses.Subject, for_schedule.Calendars, for_schedule.Hour, for_schedule.Professors.Name + for_schedule.Professors.Surname, for_schedule.Professors.Rank.ToString(), for_schedule.ID.ToString() };
-                    ScheduleGridView1.Rows.Add(row);
-                }
-            }
+            
         }
 
         private void StudentGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {

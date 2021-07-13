@@ -30,13 +30,6 @@ namespace WindowsFormsApp1.WUI {
             this.button10 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.mainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.initializeDedomenaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.addToScheduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.loadDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProfessorGridView = new System.Windows.Forms.DataGridView();
             this.StudentGridView1 = new System.Windows.Forms.DataGridView();
@@ -55,6 +48,7 @@ namespace WindowsFormsApp1.WUI {
             this.ScheduleID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudentList = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.button8 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ProfessorGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StudentGridView1)).BeginInit();
@@ -65,7 +59,7 @@ namespace WindowsFormsApp1.WUI {
             // 
             // ctrlExit
             // 
-            this.ctrlExit.Location = new System.Drawing.Point(950, 359);
+            this.ctrlExit.Location = new System.Drawing.Point(1212, 344);
             this.ctrlExit.Name = "ctrlExit";
             this.ctrlExit.Size = new System.Drawing.Size(143, 32);
             this.ctrlExit.TabIndex = 8;
@@ -75,7 +69,7 @@ namespace WindowsFormsApp1.WUI {
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(505, 645);
+            this.button9.Location = new System.Drawing.Point(906, 664);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(143, 32);
             this.button9.TabIndex = 11;
@@ -85,7 +79,7 @@ namespace WindowsFormsApp1.WUI {
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(654, 645);
+            this.button10.Location = new System.Drawing.Point(1082, 664);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(143, 32);
             this.button10.TabIndex = 12;
@@ -98,7 +92,7 @@ namespace WindowsFormsApp1.WUI {
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.label6.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.label6.Location = new System.Drawing.Point(21, 54);
+            this.label6.Location = new System.Drawing.Point(370, 9);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(426, 42);
             this.label6.TabIndex = 13;
@@ -107,78 +101,26 @@ namespace WindowsFormsApp1.WUI {
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mainToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1250, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1424, 24);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // mainToolStripMenuItem
-            // 
-            this.mainToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.initializeDedomenaToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.addToScheduleToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.loadDataToolStripMenuItem,
-            this.saveDataToolStripMenuItem});
-            this.mainToolStripMenuItem.Name = "mainToolStripMenuItem";
-            this.mainToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.mainToolStripMenuItem.Text = "Main";
-            // 
-            // initializeDedomenaToolStripMenuItem
-            // 
-            this.initializeDedomenaToolStripMenuItem.Name = "initializeDedomenaToolStripMenuItem";
-            this.initializeDedomenaToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.initializeDedomenaToolStripMenuItem.Text = "Initialize Dedomena";
-            this.initializeDedomenaToolStripMenuItem.Click += new System.EventHandler(this.initializeDedomenaToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(175, 6);
-            // 
-            // addToScheduleToolStripMenuItem
-            // 
-            this.addToScheduleToolStripMenuItem.Name = "addToScheduleToolStripMenuItem";
-            this.addToScheduleToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.addToScheduleToolStripMenuItem.Text = "Add To Schedule...";
-            this.addToScheduleToolStripMenuItem.Click += new System.EventHandler(this.addToScheduleToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(175, 6);
-            // 
-            // loadDataToolStripMenuItem
-            // 
-            this.loadDataToolStripMenuItem.Name = "loadDataToolStripMenuItem";
-            this.loadDataToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.loadDataToolStripMenuItem.Text = "Load Data";
-            this.loadDataToolStripMenuItem.Click += new System.EventHandler(this.loadDataToolStripMenuItem_Click);
-            // 
-            // saveDataToolStripMenuItem
-            // 
-            this.saveDataToolStripMenuItem.Name = "saveDataToolStripMenuItem";
-            this.saveDataToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.saveDataToolStripMenuItem.Text = "Save Data";
-            this.saveDataToolStripMenuItem.Click += new System.EventHandler(this.saveDataToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
-            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.exitToolStripMenuItem.Text = "About";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // ProfessorGridView
             // 
             this.ProfessorGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ProfessorGridView.Location = new System.Drawing.Point(28, 301);
+            this.ProfessorGridView.Location = new System.Drawing.Point(615, 70);
             this.ProfessorGridView.Name = "ProfessorGridView";
-            this.ProfessorGridView.Size = new System.Drawing.Size(376, 115);
+            this.ProfessorGridView.Size = new System.Drawing.Size(513, 115);
             this.ProfessorGridView.TabIndex = 16;
             this.ProfessorGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.ProfessorGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -187,19 +129,19 @@ namespace WindowsFormsApp1.WUI {
             // StudentGridView1
             // 
             this.StudentGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.StudentGridView1.Location = new System.Drawing.Point(439, 139);
+            this.StudentGridView1.Location = new System.Drawing.Point(615, 194);
             this.StudentGridView1.Name = "StudentGridView1";
             this.StudentGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.StudentGridView1.Size = new System.Drawing.Size(357, 212);
+            this.StudentGridView1.Size = new System.Drawing.Size(513, 212);
             this.StudentGridView1.TabIndex = 17;
             this.StudentGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.StudentGridView1_CellContentClick);
             // 
             // CourseGridView1
             // 
             this.CourseGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.CourseGridView1.Location = new System.Drawing.Point(28, 139);
+            this.CourseGridView1.Location = new System.Drawing.Point(12, 70);
             this.CourseGridView1.Name = "CourseGridView1";
-            this.CourseGridView1.Size = new System.Drawing.Size(376, 135);
+            this.CourseGridView1.Size = new System.Drawing.Size(574, 336);
             this.CourseGridView1.TabIndex = 18;
             this.CourseGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CourseGridView1_CellClick);
             // 
@@ -216,9 +158,9 @@ namespace WindowsFormsApp1.WUI {
             this.ScheduleID,
             this.StudentList,
             this.Delete});
-            this.ScheduleGridView1.Location = new System.Drawing.Point(47, 460);
+            this.ScheduleGridView1.Location = new System.Drawing.Point(98, 471);
             this.ScheduleGridView1.Name = "ScheduleGridView1";
-            this.ScheduleGridView1.Size = new System.Drawing.Size(992, 170);
+            this.ScheduleGridView1.Size = new System.Drawing.Size(904, 170);
             this.ScheduleGridView1.TabIndex = 19;
             this.ScheduleGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ScheduleGridView1_CellContentClick);
             // 
@@ -229,14 +171,14 @@ namespace WindowsFormsApp1.WUI {
             // 
             // ScheduleCalendar
             // 
-            this.ScheduleCalendar.Location = new System.Drawing.Point(930, 112);
+            this.ScheduleCalendar.Location = new System.Drawing.Point(1176, 85);
             this.ScheduleCalendar.MaxSelectionCount = 1;
             this.ScheduleCalendar.Name = "ScheduleCalendar";
             this.ScheduleCalendar.TabIndex = 20;
             // 
             // strtTime
             // 
-            this.strtTime.Location = new System.Drawing.Point(966, 313);
+            this.strtTime.Location = new System.Drawing.Point(1289, 275);
             this.strtTime.Name = "strtTime";
             this.strtTime.Size = new System.Drawing.Size(100, 20);
             this.strtTime.TabIndex = 21;
@@ -244,7 +186,7 @@ namespace WindowsFormsApp1.WUI {
             // StartTime
             // 
             this.StartTime.AutoSize = true;
-            this.StartTime.Location = new System.Drawing.Point(888, 316);
+            this.StartTime.Location = new System.Drawing.Point(1209, 278);
             this.StartTime.Name = "StartTime";
             this.StartTime.Size = new System.Drawing.Size(52, 13);
             this.StartTime.TabIndex = 22;
@@ -310,9 +252,19 @@ namespace WindowsFormsApp1.WUI {
             this.Delete.Text = "Delete";
             this.Delete.UseColumnTextForButtonValue = true;
             // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(1246, 664);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(143, 32);
+            this.button8.TabIndex = 23;
+            this.button8.Text = "Exit";
+            this.button8.UseVisualStyleBackColor = true;
+            // 
             // DataForm1
             // 
-            this.ClientSize = new System.Drawing.Size(1250, 737);
+            this.ClientSize = new System.Drawing.Size(1424, 737);
+            this.Controls.Add(this.button8);
             this.Controls.Add(this.StartTime);
             this.Controls.Add(this.strtTime);
             this.Controls.Add(this.ScheduleCalendar);
@@ -364,13 +316,6 @@ namespace WindowsFormsApp1.WUI {
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem mainToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem initializeDedomenaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem addToScheduleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem loadDataToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveDataToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.DataGridView ProfessorGridView;
         private System.Windows.Forms.DataGridView StudentGridView1;
@@ -389,5 +334,6 @@ namespace WindowsFormsApp1.WUI {
         private System.Windows.Forms.DataGridViewTextBoxColumn ScheduleID;
         private System.Windows.Forms.DataGridViewButtonColumn StudentList;
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
+        private System.Windows.Forms.Button button8;
     }
 }
