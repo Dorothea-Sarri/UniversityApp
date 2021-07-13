@@ -22,61 +22,23 @@ namespace WindowsFormsApp1.WUI {
             InitializeComponent();
         }
 
-        
-
         #region new code
         private void DataForm1_Load(object sender, EventArgs e) {
             DeserializeFromJson();
             LoadGridViews();
-
-
-
+            CourseGridView1.Columns["ID"].Visible = false;
         }
         private void LoadGridViews() {
-
 
             StudentGridView1.DataSource = objects.Students;
             CourseGridView1.DataSource = objects.Courses;
             ProfessorGridView.DataSource = objects.Professors;
-
             foreach (Schedule for_schedule in objects.Schedules) {
                 string[] row = new string[] { for_schedule.Courses.Code, for_schedule.Courses.Subject, for_schedule.Calendars, for_schedule.Hour, for_schedule.Professors.Name + for_schedule.Professors.Surname, for_schedule.Professors.Rank.ToString(), for_schedule.ID.ToString() };
                 ScheduleGridView1.Rows.Add(row);
             }
         }
-        private void initializeDedomenaToolStripMenuItem_Click(object sender, EventArgs e) {
-
-        }
-
-        private void button9_Click(object sender, EventArgs e) {
-
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            string path = Path.Combine(Environment.CurrentDirectory, _JsonFile);
-            string data = File.ReadAllText(path);
-
-            objects.Schedules = serializer.Deserialize<List<Schedule>>(data);
-
-            foreach (Schedule cc1 in objects.Schedules) {
-                foreach (Student a in objects.Students) {
-                    // ctrlSchedule.Items.Add(a.Name + " " + a.Surname );
-                }
-            }
-            for (int i = 0; i < objects.Schedules.Count - 1; i++) {
-
-                //  ctrlSchedule.Items.Add(objects.Schedules[i].Courses.Subject + "--" + objects.Schedules[i].Courses.Code);
-            }
-
-            // we do a loop
-            foreach (Schedule cc1 in objects.Schedules) {
-                // we add to the list
-                //  ctrlSchedule.Items.Add(string.Format("{0}  {1}", cc1.Professors.Name, cc1.Professors.Surname));
-            }
-
-        }
-
-        private void button10_Click(object sender, EventArgs e) {
-            SaveSchedule();
-        }
+      
         private void SaveSchedule() {
             JavaScriptSerializer ff = new JavaScriptSerializer();
             JavaScriptSerializer ProfessorSerializer = new JavaScriptSerializer();
@@ -152,10 +114,10 @@ namespace WindowsFormsApp1.WUI {
             DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(dt);
             MessageBox.Show("Student Check Begin");
             for (int i = 0; i < schedule.Count; i++) {
-                //MessageBox.Show("dd");
+                
                 for (int j = 0; j < student.Count; j++) {
                     for (int q = 0; q < schedule[i].Students.Count; q++) {
-                        //MessageBox.Show("22");
+                       
                         if (student[j].ID == schedule[i].Students[q].ID && (Calendar == objects.Schedules[i].Calendars && hour == objects.Schedules[i].Hour)) {
                             lessons_per_day_hour++;
                         }
@@ -188,75 +150,8 @@ namespace WindowsFormsApp1.WUI {
             }
             return false;
         }
-        private void ctrlExit_Click(object sender, EventArgs e) {
-            try {
+    
 
-                // TODO: 1.1 CANNOT ADD SAME PROFESSOR IN SAME DATE & HOUR DONE
-
-                // TODO: 1.2 CANNOT ADD SAME STUDENT IN SAME DATE & HOUR DONE
-
-                // TODO: 2. EACH STUDENT CANNOT HAVE MORE THAN 3 COURSES PER DAY! DONE
-
-                // TODO: 3. A PROFESSOR CANNOT TEACH MORE THAN 4 COURSES PER DAY AND 40 COURSES PER WEEK DONE
-
-                Course course = (Course)CourseGridView1.CurrentRow.DataBoundItem;
-                Student Stud = null;
-                Students.Clear();
-                for (int i = 0; i < StudentGridView1.SelectedRows.Count; i++) {
-                    Stud = (Student)StudentGridView1.SelectedRows[i].DataBoundItem;
-                    Students.Add(Stud);
-                }
-                Student student = (Student)StudentGridView1.CurrentRow.DataBoundItem;
-                string hour = strtTime.Text;
-                Professor professor = (Professor)ProfessorGridView.CurrentRow.DataBoundItem;
-                String Calendar = ScheduleCalendar.SelectionRange.Start.ToString("dd/MM/yyyy");
-                Schedule S = new Schedule();
-
-                if (ProfessorCheck(objects.Schedules, professor, Calendar, hour) && StudentCheck(objects.Schedules, Students, Calendar, hour)) {
-                    MessageBox.Show("Valid Professor And Student Insert to Schedule");
-                    Schedule s = new Schedule(Students, course, professor, Calendar, hour);
-                    objects.Schedules.Add(s);
-                    string[] row = new string[] { course.Code, course.Subject, Calendar, hour, professor.Name + professor.Surname, professor.Rank.ToString(), s.ID.ToString() };
-                    ScheduleGridView1.Rows.Add(row);
-                    SaveSchedule();
-                }
-                else {
-                    MessageBox.Show("Invalid Selection");
-                }
-                //for (int i = 0; i < objects.Schedules.Count; i++) {
-                //    // for (int j = 0; j < objects.Schedules[i].Students.Count; j++) {
-                //    MessageBox.Show("aaaaa");
-                //    if (professor.ID == objects.Schedules[i].Professors.ID && Calendar != objects.Schedules[i].Calendars) {
-                //        MessageBox.Show("Valid Professor");
-                //        objects.Schedules.Add(new Schedule(Students, course, professor, Calendar));
-                //        string[] row = new string[] { professor.Name + professor.Surname, professor.Rank.ToString(), course.Code, course.Subject };
-                //        ScheduleGridView1.Rows.Add(row);
-                //        SaveSchedule();
-                //    }
-                //    for (int j = 0; j < objects.Schedules[i].Students.Count; j++) {
-                //        if (student.ID == objects.Schedules[i].Students[j].ID && Calendar != objects.Schedules[i].Calendars) {
-                //            MessageBox.Show("Valid Student");
-                //        }
-                //    }
-
-
-
-                // }
-
-            }
-            catch {
-                MessageBox.Show("error");
-            }
-        }
-
-        public void validate_professorCourse_with_studentCourse() {
-
-            //TODO: ???
-
-        }
-        public void Valid() {
-
-        }
         #endregion
         private void DeserializeFromJson() {
 
@@ -284,15 +179,6 @@ namespace WindowsFormsApp1.WUI {
 
         }
 
-
-        private void addToScheduleToolStripMenuItem_Click(object sender, EventArgs e) {
-
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
-            Application.Exit();
-        }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
 
 
@@ -309,19 +195,12 @@ namespace WindowsFormsApp1.WUI {
             }
             if (ScheduleGridView1.Columns[e.ColumnIndex].Name == "StudentList") {
                 MessageBox.Show(objects.Schedules[0].Students[0].Name.ToString());
-                //Schedule s; //= (Schedule)ScheduleGridView1.CurrentRow.DataBoundItem;
-                //List<Schedule> l = new List<Schedule>();
-                //for (int i = 0; i < ScheduleGridView1.SelectedRows.Count; i++) {
-                //    s = (Schedule)ScheduleGridView1.SelectedRows[i].DataBoundItem;
-                //    l.Add(s);
-                //}
-                //StudentForm form = new StudentForm(l[0].Students);
-                //objects.Schedules
+               
                 List<Student> l = new List<Student>();
                 l.Clear();
                 Schedule s = null;
                 Student Stud = null;
-                //s = (Schedule)ScheduleGridView1.CurrentRow.DataBoundItem;
+               
                 Students.Clear();
                 for (int i = 0; i < ScheduleGridView1.SelectedRows.Count; i++) {
                     
@@ -332,12 +211,6 @@ namespace WindowsFormsApp1.WUI {
                     
                 }
 
-
-                //Schedule s; //= (Schedule)ScheduleGridView1.CurrentRow.DataBoundItem;
-                //List<Student> l = new List<Student>();
-                //for (int i = 0; i < objects.Schedules.Count; i++) {
-                //    l = objects.Schedules[i].Students;
-                //}
                 StudentForm form = new StudentForm(l);
                 form.Show();
             }
@@ -353,6 +226,7 @@ namespace WindowsFormsApp1.WUI {
         }
 
         private void CourseGridView1_CellClick(object sender, DataGridViewCellEventArgs e) {
+            
             Course course = (Course)CourseGridView1.CurrentRow.DataBoundItem;
             List<Student> students = new List<Student>();
             List<Professor> professors = new List<Professor>();
@@ -377,6 +251,71 @@ namespace WindowsFormsApp1.WUI {
             }
             StudentGridView1.DataSource = students;
             ProfessorGridView.DataSource = professors;
+        }
+
+      
+
+        private void Add_Click(object sender, EventArgs e) {
+            try {
+
+                Course course = (Course)CourseGridView1.CurrentRow.DataBoundItem;
+                Student Stud = null;
+                Students.Clear();
+                for (int i = 0; i < StudentGridView1.SelectedRows.Count; i++) {
+                    Stud = (Student)StudentGridView1.SelectedRows[i].DataBoundItem;
+                    Students.Add(Stud);
+                }
+                Student student = (Student)StudentGridView1.CurrentRow.DataBoundItem;
+                string hour = strtTime.Text;
+                Professor professor = (Professor)ProfessorGridView.CurrentRow.DataBoundItem;
+                String Calendar = ScheduleCalendar.SelectionRange.Start.ToString("dd/MM/yyyy");
+                Schedule S = new Schedule();
+
+                if (ProfessorCheck(objects.Schedules, professor, Calendar, hour) && StudentCheck(objects.Schedules, Students, Calendar, hour)) {
+                    MessageBox.Show("Valid Professor And Student Insert to Schedule");
+                    Schedule s = new Schedule(Students, course, professor, Calendar, hour);
+                    objects.Schedules.Add(s);
+                    string[] row = new string[] { course.Code, course.Subject, Calendar, hour, professor.Name + professor.Surname, professor.Rank.ToString(), s.ID.ToString() };
+                    ScheduleGridView1.Rows.Add(row);
+                    SaveSchedule();
+                }
+                else {
+                    MessageBox.Show("Invalid Selection");
+                }
+             
+
+
+            }
+            catch {
+                MessageBox.Show("error");
+            }
+        }
+
+        private void Exit_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
+
+        private void Load_Click(object sender, EventArgs e) {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            string path = Path.Combine(Environment.CurrentDirectory, _JsonFile);
+            string data = File.ReadAllText(path);
+
+            objects.Schedules = serializer.Deserialize<List<Schedule>>(data);
+
+            foreach (Schedule cc1 in objects.Schedules) {
+                foreach (Student a in objects.Students) {
+                  
+                }
+            }
+          
+        }
+
+        private void Save_Click(object sender, EventArgs e) {
+            SaveSchedule();
+        }
+
+        private void About_Click(object sender, EventArgs e) {
+            MessageBox.Show("Τhis application was created during Epsilonet Coding School by Dorothea Sarri");
         }
     }
 }
